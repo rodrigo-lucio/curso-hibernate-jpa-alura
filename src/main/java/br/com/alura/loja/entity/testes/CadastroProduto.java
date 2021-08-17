@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import br.com.alura.loja.dao.ProdutoDao;
+import br.com.alura.loja.entity.Categoria;
 import br.com.alura.loja.entity.Produto;
 import br.com.alura.loja.entity.util.JPAUtil;
 
@@ -18,6 +19,7 @@ public class CadastroProduto {
         celular.setNome("Xiaomi Redmi");
         celular.setDescricao("Muito legal");
         celular.setPreco(new BigDecimal("800"));
+        celular.setCategoria(Categoria.CELULARES);
 
         EntityManager entityManager = JPAUtil.getEntityManager();
         
