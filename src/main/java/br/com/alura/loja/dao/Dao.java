@@ -4,15 +4,15 @@ import javax.persistence.EntityManager;
 
 import br.com.alura.loja.entity.Produto;
 
-public class ProdutoDao {
+public class Dao<T> {
 
 	private EntityManager entityManager;
 
-	public ProdutoDao(EntityManager entityManager) {
+	public Dao(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	
-	public void cadastrar(Produto produto) {
-		this.entityManager.persist(produto);
+
+	public void cadastrar(T entity) {
+		this.entityManager.persist(entity);
 	}
 }
