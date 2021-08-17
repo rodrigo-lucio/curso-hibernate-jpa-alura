@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.entity.Produto;
+import br.com.alura.loja.entity.util.JPAUtil;
 
 public class CadastroProduto {
 
@@ -17,8 +19,11 @@ public class CadastroProduto {
         celular.setDescricao("Muito legal");
         celular.setPreco(new BigDecimal("800"));
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja"); //name la da tag persistence-unit do persistence.xml
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = JPAUtil.getEntityManager();
+        
+        ProdutoDao produtoDao = new ProdutoDao(entityManager);
+        produtoDao.cadastrar(celular);
+        
         entityManager.getTransaction().begin();
         entityManager.persist(celular);
         entityManager.getTransaction().commit();
