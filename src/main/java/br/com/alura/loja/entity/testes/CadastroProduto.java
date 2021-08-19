@@ -21,19 +21,18 @@ public class CadastroProduto {
 		Categoria categoria = new Categoria("Celulares");
 		celular.setCategoria(categoria);
 
-		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityManager em = JPAUtil.getEntityManager();
 
-		Dao<Object> dao = new Dao<Object>(entityManager);
+		Dao<Object> dao = new Dao<Object>(em);
 
-		entityManager.getTransaction().begin();
+		em.getTransaction().begin();
 		dao.cadastrar(categoria);
 		dao.cadastrar(celular);
 		
 		celular.setNome("Alterei o xiaomi");    		//Como minha entidade está persistida, esta MANAGED, gerenciada pela JPA. nesse caso vai executar um update no nome 
 		
-		entityManager.getTransaction().commit(); 		//Pode ser o flush tambem, ele grava, gera ID, mas não comita
-		entityManager.close();   				 		//Depois que é feito o close ou clear, as entidades MANAGED passam a ser Detached, ou seja, o JPA nao esta mais gerenciando
-								
+		em.flush();										// Flush, diferente do commit, ele apenas sincroniza mas não salva
+		em.clear();   				 		
 		celular.setNome("Alterei o xiaomi de novo");    //Não vai executar update
 		
 		// Ciclo de vida da entidade
@@ -41,6 +40,20 @@ public class CadastroProduto {
 		// Quando da um PERSIST -> Managed (Gerenciado)
 		// Commit ou Flush - Salva as alteraçoes no BD
 		// Close ou Clear - Detached - Não esta mais gerenciado
+		
+		
+		// Agora no UPDATE
+		// Caso queira voltar a entidade para o estado Managed, eu chamo o merge e atribuo novamente para a entidade o valor
+		// Agora se fizer o setnome vai funcionar, independente se chamar antes ou depois do merge
+
+		celular = em.merge(celular);
+		celular.setNome("Alterei o xiaomi de novo com o merge"); 
+		em.getTransaction().commit();
+		em.close();							// Depois que é feito o close ou clear, 
+											// as entidades MANAGED passam a ser Detached, ou seja, o JPA nao esta mais gerenciando, 
+											// Diferença é que o close fecha a conexao, e o clear apenas limpa as entidades gerenciadas
+			
+		
 		
 	}
 }
