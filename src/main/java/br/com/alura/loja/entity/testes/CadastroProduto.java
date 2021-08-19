@@ -28,7 +28,19 @@ public class CadastroProduto {
 		entityManager.getTransaction().begin();
 		dao.cadastrar(categoria);
 		dao.cadastrar(celular);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		
+		celular.setNome("Alterei o xiaomi");    		//Como minha entidade está persistida, esta MANAGED, gerenciada pela JPA. nesse caso vai executar um update no nome 
+		
+		entityManager.getTransaction().commit(); 		//Pode ser o flush tambem, ele grava, gera ID, mas não comita
+		entityManager.close();   				 		//Depois que é feito o close ou clear, as entidades MANAGED passam a ser Detached, ou seja, o JPA nao esta mais gerenciando
+								
+		celular.setNome("Alterei o xiaomi de novo");    //Não vai executar update
+		
+		// Ciclo de vida da entidade
+		// Quando da um NEW no objeto -> Transient
+		// Quando da um PERSIST -> Managed (Gerenciado)
+		// Commit ou Flush - Salva as alteraçoes no BD
+		// Close ou Clear - Detached - Não esta mais gerenciado
+		
 	}
 }

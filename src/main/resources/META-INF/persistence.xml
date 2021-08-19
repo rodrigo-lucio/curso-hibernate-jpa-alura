@@ -11,10 +11,18 @@
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 
- 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> <!-- DB Dialect -->
-            <property name="hibernate.hbm2ddl.auto" value="create" /> <!-- create / create-drop / update --> 
-            <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
-            <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
+ 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> 
+            <property name="hibernate.hbm2ddl.auto" value="update" /> 
+            <property name="hibernate.show_sql" value="true" /> 
+            <property name="hibernate.format_sql" value="true" /> 
+
+<!-- Caso queira criar um arquivo sql do create das tabelas separado, para jogar num FlyWay por exemplo
+			<property name="javax.persistence.schema-generation.create-source" value="metadata" />
+			<property name="javax.persistence.schema-generation.scripts.action" value="create" />
+			<property name="javax.persistence.schema-generation.scripts.create-target" value="create.sql" />
+            <property name="hibernate.jdbc.lob.non_contextual_creation" value="true" />  
+            <property name="hibernate.ddl-auto" value="true" />  -->
+
 
 		</properties>
 	</persistence-unit>
