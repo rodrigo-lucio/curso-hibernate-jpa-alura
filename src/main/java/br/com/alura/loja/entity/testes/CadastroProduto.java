@@ -32,8 +32,8 @@ public class CadastroProduto {
 		celular.setNome("Alterei o xiaomi");    		//Como minha entidade está persistida, esta MANAGED, gerenciada pela JPA. nesse caso vai executar um update no nome 
 		
 		em.flush();										// Flush, diferente do commit, ele apenas sincroniza mas não salva
-		em.clear();   				 		
-		celular.setNome("Alterei o xiaomi de novo");    //Não vai executar update
+		em.clear();   				 					// Limpa todas as entidades gerenciadas
+		celular.setNome("Alterei o xiaomi de novo");    // Não vai executar update, pois nao esta mais gerenciada, dei o clear acima
 		
 		// Ciclo de vida da entidade
 		// Quando da um NEW no objeto -> Transient
@@ -48,6 +48,10 @@ public class CadastroProduto {
 
 		celular = em.merge(celular);
 		celular.setNome("Alterei o xiaomi de novo com o merge"); 
+		
+		em.remove(celular);
+		categoria = em.merge(categoria);
+		em.remove(categoria);				// O delete segue a mesma ideia do update, só é removido se estiver managed
 		em.getTransaction().commit();
 		em.close();							// Depois que é feito o close ou clear, 
 											// as entidades MANAGED passam a ser Detached, ou seja, o JPA nao esta mais gerenciando, 

@@ -15,4 +15,9 @@ public class Dao<T> {
 	public void cadastrar(T entity) {
 		this.entityManager.persist(entity);
 	}
+	
+	public void remover(T entity) {
+		this.entityManager.remove(entity);
+	}
+
 }
