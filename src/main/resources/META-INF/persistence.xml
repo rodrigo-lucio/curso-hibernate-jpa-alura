@@ -14,7 +14,7 @@
  			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> 
             <property name="hibernate.hbm2ddl.auto" value="update" /> 
             <property name="hibernate.show_sql" value="true" /> 
-            <property name="hibernate.format_sql" value="false" /> 
+            <property name="hibernate.format_sql" value="true" /> 
 
 <!-- Caso queira criar um arquivo sql do create das tabelas separado, para jogar num FlyWay por exemplo
 			<property name="javax.persistence.schema-generation.create-source" value="metadata" />
