@@ -2,21 +2,21 @@ package br.com.alura.loja.dao;
 
 import javax.persistence.EntityManager;
 
-import br.com.alura.loja.entity.Produto;
+import br.com.alura.loja.entity.Categoria;
 
-public class Dao<T> {
+public class CategoriaDao {
 
 	private EntityManager entityManager;
 
-	public Dao(EntityManager entityManager) {
+	public CategoriaDao(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 
-	public void cadastrar(T entity) {
+	public void cadastrar(Categoria entity) {
 		this.entityManager.persist(entity);
 	}
 	
-	public void remover(T entity) {
+	public void remover(Categoria entity) {
 		this.entityManager.remove(entity);
 	}
 
